@@ -32,14 +32,14 @@ var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 exports.Quiz = Quiz; // Exportar definición de tabla Quiz
 
 // sequelize.sync() crea e inicializa tabla de preguntas en BDD
-sequelize.sync().success(function(){
+sequelize.sync().then(function(){
 	// success(..)  ejecuta el manejador  una vez creada la tabla
-	Quiz.count().success(function(count){
+	Quiz.count().then(function(count){
 		if(count === 0) { // la tabla se inicializa solo si vacía
 			Quiz.create({ pregunta: 'Capital de Italia', 
 						  respuesta: 'Roma'
 						})
-			.success(function(){console.log('BDD inicializada')});
+			.then(function(){console.log('BDD inicializada')});
 		};
 	});	
 });
