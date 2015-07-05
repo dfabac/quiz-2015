@@ -1,3 +1,9 @@
+<form method="get" action="/quizes">
+	Buscar pregunta:
+	<input type="text" name="search" />
+	<input type="submit" value="Buscar" />
+</form>
+
 <table>
 <%
 	var i;
@@ -5,6 +11,14 @@
 %>
 		<tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></tr></td>
 <%	
-	}
+	};
 %>
 </table>
+
+<%
+if (search) {
+%>
+		<p>(Resultados filtrados por "<%= search %>")</p>
+<%
+	};
+%>
