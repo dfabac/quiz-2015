@@ -2,7 +2,7 @@ var models = require('../models/models.js');
 
 // GET /quizes/:quizId/comments/new
 exports.new = function(req, res) {
-	res.render('comments/new.ejs', {quizid: req.params.quizId, errors: []});
+	res.render('comments/new', {quizid: req.params.quizId, errors: []});
 };
 
 // POST /quizes/:quizId/comments
@@ -18,7 +18,7 @@ exports.create = function(req, res) {
 	.then(
 		function(err){
 			if (err) {
-				res.render('comments/new.ejs', {comment: comment, errors: err.errors});
+				res.render('comments/new', {quizid: req.params.quizId, errors: err.errors});
 			} else {
 				comment
 				.save()

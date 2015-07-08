@@ -74,7 +74,6 @@ exports.create = function(req, res) {
 			}
 		}
 	);
-
 };
 
 // GET /quizes/:id/edit
