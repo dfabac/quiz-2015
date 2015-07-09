@@ -15,7 +15,7 @@ exports.create = function(req, res) {
 
 	comment
 	.validate()
-	.then(
+	.then(	
 		function(err){
 			if (err) {
 				res.render('comments/new', {quizid: req.params.quizId, errors: err.errors});

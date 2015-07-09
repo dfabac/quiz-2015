@@ -1,5 +1,6 @@
 var users = { admin: {id:1, username:"admin", password:"1234"},
-			  pepe:  {id:2, username:"pepe",  password:"5678"}
+			  pepe:  {id:2, username:"pepe",  password:"5678"},
+			  sardina:  {id:3, username:"sardina",  password:"cecina"}
 			};
 
 exports.autenticar = function (login, password, callback) {

@@ -1,5 +1,15 @@
 var models = require('../models/models.js');
 
+
+// MW de autorización
+exports.loginRequired = function(req, res, next) {
+	if (req.session.user) {
+		next();
+	} else {
+		res.redirect('/login');
+	}
+};
+
 // GET /login
 exports.new = function(req, res) {
 	var errors = req.session.errors || {}; 
@@ -30,7 +40,7 @@ exports.create = function(req, res) {
 };
 
 
-// GET /logout
+// DELETE /logout
 exports.destroy = function(req, res) {
 	delete req.session.user;
 	res.redirect(req.session.redir.toString());
