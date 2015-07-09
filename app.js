@@ -34,8 +34,6 @@ app.use(function(req, res, next) {
     // guardar path en session.redir para volver después de login
     if (!req.path.match(/\/login|\/logout/)) {
         req.session.redir = req.path;
-    } else {
-        req.session.redir = '/'; // si entra la primera vez por /login
     }
 
     // hacer visible req.session en las vistas
