@@ -47,8 +47,6 @@ exports.create = function(req, res) {
 exports.publish = function(req, res) {
 	req.comment.publicado = true;
 
-	console.log("PUBLICAAAAAAAAA");
-	
 	req.comment
 	.save({ fields: ["publicado"]} )
 	.then(function(){

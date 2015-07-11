@@ -34,12 +34,18 @@ app.use(function(req, res, next) {
     // guardar path en session.redir para volver después de login
     if (!req.path.match(/\/login|\/logout/)) {
         req.session.redir = req.path;
-    }
+    } 
+    
+    if (!req.session.redir) req.session.redir = "/";
 
     // hacer visible req.session en las vistas
     res.locals.session = req.session;
     next();
 });
+
+// control de inactividad de la sesión
+var sessionController = require('./controllers/session_controller');
+app.use(sessionController.sessionTimeout);
 
 app.use('/', routes);
 
@@ -51,6 +57,7 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+
 
 // development error handler
 // will print stacktrace

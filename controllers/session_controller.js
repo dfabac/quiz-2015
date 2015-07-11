@@ -10,6 +10,23 @@ exports.loginRequired = function(req, res, next) {
 	}
 };
 
+exports.sessionTimeout = function(req, res, next) {
+	if (req.session.user) {
+		if (req.session.tstamp && (Date.now() > req.session.tstamp + 5000) ) {
+			delete req.session.user;
+			delete req.session.tstamp;
+			res.render('sessions/new', {errors: [{"message": "tu sesión caducó"}]});
+		} else {
+			req.session.tstamp = Date.now();
+			console.log(req.session.tstamp);
+			next();
+		}
+	} else {
+		next();
+	} 
+    
+};
+
 // GET /login
 exports.new = function(req, res) {
 	var errors = req.session.errors || {}; 
@@ -43,5 +60,7 @@ exports.create = function(req, res) {
 // DELETE /logout
 exports.destroy = function(req, res) {
 	delete req.session.user;
+	delete req.session.tstamp;
+	console.log('ME DESLOGO')
 	res.redirect(req.session.redir.toString());
 };
