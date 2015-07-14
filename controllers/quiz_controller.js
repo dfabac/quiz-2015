@@ -29,7 +29,7 @@ exports.index = function(req, res) {
 		function(quizes) {
 			res.render('quizes/index', { quizes: quizes, search: req.query.search, errors: [] });
 		}
-	).catch(function(error) { next.error(error); })
+	).catch(function(error) { next(error); });
 };
 
 

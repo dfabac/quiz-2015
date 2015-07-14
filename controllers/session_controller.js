@@ -11,20 +11,22 @@ exports.loginRequired = function(req, res, next) {
 };
 
 exports.sessionTimeout = function(req, res, next) {
+	var SESSION_TIMEOUT = 120000 // 120 segundos 
+
 	if (req.session.user) {
-		if (req.session.tstamp && (Date.now() > req.session.tstamp + 5000) ) {
+		if (req.session.tstamp && (Date.now() > req.session.tstamp + SESSION_TIMEOUT) ) {
 			delete req.session.user;
 			delete req.session.tstamp;
-			res.render('sessions/new', {errors: [{"message": "tu sesión caducó"}]});
+			res.render('sessions/new', {errors: [
+				{"message": "tu sesión caducó ("+ (SESSION_TIMEOUT/1000) + " segundos inactiva)"}
+			]});
 		} else {
 			req.session.tstamp = Date.now();
-			console.log(req.session.tstamp);
 			next();
 		}
 	} else {
 		next();
-	} 
-    
+	}
 };
 
 // GET /login
@@ -61,6 +63,5 @@ exports.create = function(req, res) {
 exports.destroy = function(req, res) {
 	delete req.session.user;
 	delete req.session.tstamp;
-	console.log('ME DESLOGO')
 	res.redirect(req.session.redir.toString());
 };
